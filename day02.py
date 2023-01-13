@@ -1,15 +1,16 @@
-# Chapter 03 숫자
-# 진법
+# Chapter 04 IF
 
-# number = 0b10011010   # 2진수
-# number = 0x9a 1    # 16진수
-# number = 0o232      # 8진수
-# print(number)
+limits = 20
+tweets = "pass" * 6
+diff = limits - len(tweets)
+if diff >= 0:
+    print(tweets)
+else:
+    print(f"글자 수 {abs(diff)} 초과")
 
-number = 154
-print(bin(number))
-print(oct(number))
-print(hex(number))
 
-print(ord("l"))     # 스페이스바에 대한 아스키코드 값 ascii
-print(hex(ord("l")))
+a = []
+print(bool([a]))
+a.append(5)
+print(bool(set(a)))
+# print(bool(dict(a)))
