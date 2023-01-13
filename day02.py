@@ -1,12 +1,21 @@
 # Chapter 04 IF
 
-import random
-
-limits = 20
-tweets = "pass" * random.randint(1, 10)      # 1에서 10 사이의 정수가 임의로 발생
-diff = limits - len(tweets)
-if diff >= 0:
-    print(tweets)
+furry = True
+large = True
+if furry:
+    if large:
+        print("yeti")
+    else:
+        print("cat")
 else:
-    print(f"글자 수 {abs(diff)} 초과")
+    if large:
+        print("whale")
+    else:
+        print("human or hairless cat")
 
+
+list = [5, 3]
+if list:
+    print("뭔가 있다")
+else:
+    print("empty")
