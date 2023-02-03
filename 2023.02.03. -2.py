@@ -5,7 +5,10 @@ def print_Poly(p_x):
     for i in range(len(px)):
         coef = p_x[i]  # 계수
 
-        if coef >= 0:
+        if coef == 0:
+            term = term - 1
+            continue
+        elif i != 0 and coef > 0:
             poly_str += "+"
         poly_str = poly_str + f"{coef}x^{term} "
         term = term - 1
