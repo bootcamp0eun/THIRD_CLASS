@@ -3,6 +3,10 @@ class Node() :
     def __init__ (self) :
         self.data = None
         self.link = None
+    # def __init__(self, data):로 해서 만들어도 됨
+
+    def __repr__(self):
+        return f'포켓몬스터!'
 
 
 def print_nodes(start):
