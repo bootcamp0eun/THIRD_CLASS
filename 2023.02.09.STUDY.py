@@ -1,15 +1,15 @@
-# 큐
+# 원형 큐
 
-# 큐에 데이터 삽입, 추출, 확인하는 함수 만들기
+# 원형 큐에 데이터 삽입, 추출, 확인하는 함수 만들기
 
 size = 10
 queue = [None for _ in range(size)]
-front = rear = - 1
+front = rear = 0
 
 
 def is_queue_full():
     global size, queue, front, rear
-    if rear == size-1:
+    if (rear+1) % size == front:
         return True
     return False
 
@@ -26,7 +26,7 @@ def enQueue(data):
     if is_queue_full():
         print("큐가 가득 찼습니다")
         return
-    rear = rear + 1
+    rear = (rear + 1) % size
     queue[rear] = data
 
 
@@ -35,7 +35,7 @@ def deQueue():
     if is_queue_empty():
         print("큐가 비었습니다.")
         return None
-    front = front + 1
+    front = (front + 1) % size
     temp = queue[front]
     queue[front] = None
     return temp
@@ -46,7 +46,7 @@ def peek():
     if is_queue_empty():
         print("큐가 비었습니다.")
         return None
-    return queue[front+1]
+    return queue[(front+1) % size]
 
 
 for data in ["오리사", "메르시", "파라", "겐지", "둠피스트", "소전", "위도우"]:
@@ -57,4 +57,8 @@ print(queue)
 print("peek() -> ", peek())
 print("deQueue() -> ", deQueue())
 print("deQueue() -> ", deQueue())
+print(queue)
+enQueue("윈스턴")
+enQueue("정커퀸")
+enQueue("키리코")
 print(queue)
