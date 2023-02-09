@@ -1,96 +1,60 @@
-# 원형 연결 리스트
+# 큐
 
-# 원형 연결 리스트에 원하는 위치에 데이터 삽입하고, 원하는 데이터 삭제하는 함수 만들기
-# 원형 연결 리스트 출력하는 함수 만들기
-head, current, pre = None, None, None
+# 큐에 데이터 삽입, 추출, 확인하는 함수 만들기
 
-
-class Node:
-    def __init__(self):
-        self.data = None
-        self.link = None
+size = 10
+queue = [None for _ in range(size)]
+front = rear = - 1
 
 
-def print_nodes():
-    global head, current, pre
-    current = head
-    if current == None:
+def is_queue_full():
+    global size, queue, front, rear
+    if rear == size-1:
+        return True
+    return False
+
+
+def is_queue_empty():
+    global size, queue, front, rear
+    if rear == front:
+        return True
+    return False
+
+
+def enQueue(data):
+    global size, queue, front, rear
+    if is_queue_full():
+        print("큐가 가득 찼습니다")
         return
-    print(current.data, end=' -> ')
-    while current.link != head:
-        current = current.link
-        print(current.data, end=' -> ')
-    print()
+    rear = rear + 1
+    queue[rear] = data
 
 
-def add(new_data):
-    global current, head, pre
-    current = head
-    new = Node()
-    new.data = new_data
-    if head == None:
-        head = new
-        head.link = head
-        return
-    while current.link != head:
-        current = current.link
-    current.link = new
-    new.link = head
+def deQueue():
+    global size, queue, front, rear
+    if is_queue_empty():
+        print("큐가 비었습니다.")
+        return None
+    front = front + 1
+    temp = queue[front]
+    queue[front] = None
+    return temp
 
 
-def insert(find_data, new_data):
-    global current, head, pre
-    current = head
-    new = Node()
-    new.data = new_data
-    last = current
-    if head.data == find_data:
-        new.link = head
-        head = new
-        while last.link != head:
-            last = current.link
-        last.link = head
-        return
-    while current.link != head:
-        pre = current
-        current = current.link
-        if current.data == find_data:
-            pre.link = new
-            new.link = current
-            return
+def peek():
+    global size, queue, front, rear
+    if is_queue_empty():
+        print("큐가 비었습니다.")
+        return None
+    return queue[front+1]
 
 
-def delete(delete_data):
-    global head, pre, current
-    current = head
-    last = current
-    if head.data == delete_data:
-        head = head.link
-        del current
-        while last.link != head:
-            last = last.link
-        last.link = head
-        return
-    while current.link != head:
-        pre = current
-        current = current.link
-        if current.data == delete_data:
-            pre.link = current.link
-            del current
-            return
-
-
-for data in ["오리사", "메르시", "겐지", "둠피스트", "키리코", "레킹볼"]:
-    add(data)
-
-print_nodes()
-insert("겐지", "파라")
-print_nodes()
-delete("둠피스트")
-print_nodes()
-
-
-
-
-
-
+for data in ["오리사", "메르시", "파라", "겐지", "둠피스트", "소전", "위도우"]:
+    enQueue(data)
+print(queue)
+print("deQueue() -> ", deQueue())
+print(queue)
+print("peek() -> ", peek())
+print("deQueue() -> ", deQueue())
+print("deQueue() -> ", deQueue())
+print(queue)
