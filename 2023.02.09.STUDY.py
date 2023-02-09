@@ -1,52 +1,86 @@
-# 선형 리스트
+# 단순 연결 리스트
 
-# 리스트에 원하는 위치에 데이터 삽입하고, 데이터 삭제하는 함수 만들기
+# 단순 연결 리스트에 원하는 위치에 데이터 삽입하고, 원하는 데이터 삭제하는 함수 만들기
+# 단순 연결 리스트 출력하는 함수 만들기
+head, current, pre = None, None, None
 
 
-class LinearList:
+class Node:
     def __init__(self):
-        self.real = []
+        self.data = None
+        self.link = None
 
-    def __str__(self):
-        return f"{self.real}"
 
-    def add(self, data):
-        self.real.append(None)
-        self.real[len(self.real) - 1] = data
+def print_nodes():
+    global head, current, pre
+    current = head
+    if current == None:
+        return
+    print(current.data, end='')
+    while current.link is not None:
+        current = current.link
+        print(" -> ", current.data, end='')
+    print()
 
-    def insert(self, index, data):
-        if index < 0 or index > len(self.real):
-            print("삽입 가능 범위를 벗어났습니다.")
+
+def add(new_data):
+    global current, head, pre
+    current = head
+    new = Node()
+    new.data = new_data
+    if head == None:
+        head = new
+        return
+    while current.link != None:
+        current = current.link
+    current.link = new
+
+
+def insert(find_data, new_data):
+    global current, head, pre
+    current = head
+    new = Node()
+    new.data = new_data
+    if head.data == find_data:
+        new.link = head
+        head = new
+        return
+    while current.link is not None:
+        pre = current
+        current = current.link
+        if current.data == find_data:
+            pre.link = new
+            new.link = current
             return
-        self.real.append(None)
-        for i in range(len(self.real) - 1, index, -1):
-            self.real[i] = self.real[i - 1]
-            self.real[i - 1] = None
-        self.real[index] = data
 
-    def delete(self, index):
-        if index < 0 or index >= len(self.real):
-            print("삭제 가능 범위를 벗어났습니다.")
+
+def delete(delete_data):
+    global head, pre, current
+    current = head
+    if head.data == delete_data:
+        head = head.link
+        del head
+        return
+    while current.link is not None:
+        pre = current
+        current = current.link
+        if current.data == delete_data:
+            pre.link = current.link
+            del current
             return
-        self.real[index] = None
-        for i in range(index+1, len(self.real)):
-            self.real[i - 1] = self.real[i]
-            self.real[i] = None
-        del self.real[len(self.real) - 1]
 
 
-a = LinearList()
+for data in ["오리사", "메르시", "겐지", "둠피스트", "키리코", "레킹볼"]:
+    add(data)
 
-print(a)
-a.add("오리사")
-a.add("둠피스트")
-a.add("정커퀸")
-a.add("메르시")
-a.add("겐지")
-print(a)
-a.insert(4, "파라")
-print(a)
-a.insert(5, "아나")
-print(a)
-a.delete(1)
-print(a)
+print_nodes()
+insert("겐지", "파라")
+print_nodes()
+delete("둠피스트")
+print_nodes()
+
+
+
+
+
+
